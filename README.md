@@ -14,13 +14,13 @@ Some of the way this package can be used are:
 This package is helpful for **manage all the exceptions** that can be thrown across our *StateNotifiers* or *ChangeNotifiers* for example for internal errors or api calls.
 Automatically this package listen the notifier and knows when to show a message to the user.
 
-//TODO mettere VIDEO
+https://user-images.githubusercontent.com/47910896/154097474-fd7054e8-dfa4-4fb2-90e7-e872af4c9feb.mov
 
 ### In app notifications
 
 If we want to send a success message or a notification to the user from our notifiers this package can help us. Thanks to Riverpod it doesn't matter from where we send the message, this will be displayed to the user.
 
-// TODO mettere VIDEO
+https://user-images.githubusercontent.com/47910896/154097499-3fb11696-aa53-42b9-be18-8fdd6c30758b.mov
 
 # How it works
 
