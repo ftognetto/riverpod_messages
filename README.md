@@ -46,3 +46,93 @@ This package give use already two implementations of the **MessageListener** wid
  - The **MessageOverlayListener** that will use the Overlay api to display messages
 
 Of course you can fork and send PRs if you want to use other way to display messages! It's just a matter of wrap **MessageListener** and customize *showError* and *showInfo* methods!
+
+# Examples
+
+You can download the project and run example project inside
+
+### StateNotifier
+
+This is a sample StateNotifier
+
+```
+class ExampleStateNotifierState {
+  final String? error;
+  final String? info;
+  /// .... other properties of the state
+  final bool loading;
+
+  const ExampleStateNotifierState({this.loading = false, this.error, this.info});
+
+  ExampleStateNotifierState copyWith({
+    String? error,
+    String? info,
+    bool? loading
+  }) {
+    return ExampleStateNotifierState(
+      error: error ?? this.error,
+      info: info ?? this.info,
+      loading: loading ?? this.loading
+    );
+  }
+
+}
+
+class ExampleStateNotifier extends StateNotifier<ExampleStateNotifierState> {
+  ExampleStateNotifier(): super(const ExampleStateNotifierState());
+
+  Future<void> simulateError() async {
+    state = state.copyWith(loading: true, error: '');
+
+    // simulate a job
+    await Future.delayed(const Duration(seconds: 1));
+
+    state = state.copyWith(loading: false, error: 'Ooops! An error has occurred! [StateNotifier]');
+  }
+
+  Future<void> simulateInfo() async {
+    state = state.copyWith(loading: true, info: '');
+
+    // simulate a job
+    await Future.delayed(const Duration(seconds: 1));
+    state = state.copyWith(loading: false, info: 'You received a new message! [StateNotifier]');
+  }
+}
+
+final exampleStateNotifierProvider = StateNotifierProvider<ExampleStateNotifier, ExampleStateNotifierState>((_) => ExampleStateNotifier());
+```
+
+And then in your page
+
+```
+class StateNotifierSnackbarPage extends ConsumerWidget {
+  const StateNotifierSnackbarPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('State Notifier with Snackbar'),
+        ),
+        body: MessageSnackbarListener( // This is the listener
+            provider: exampleStateNotifierProvider,
+            child: Center(
+                child: Column(mainAxisSize: MainAxisSize.min, children: [
+              ElevatedButton(
+                  child: const Text('Simulate error message'),
+                  style: ElevatedButton.styleFrom(primary: Colors.red),
+                  onPressed: () {
+                    ref.read(exampleStateNotifierProvider.notifier).simulateError();
+                  }),
+              ElevatedButton(
+                  child: const Text('Simulate information message'),
+                  onPressed: () {
+                    ref.read(exampleStateNotifierProvider.notifier).simulateInfo();
+                  }),
+              ref.watch(exampleStateNotifierProvider.select((value) => value.loading))
+                  ? const CircularProgressIndicator()
+                  : Container()
+            ]))));
+  }
+}
+```

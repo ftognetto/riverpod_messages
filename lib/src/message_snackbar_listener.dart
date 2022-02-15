@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_messages/src/message_listener.dart';
@@ -7,7 +5,7 @@ import 'package:riverpod_messages/src/message_listener.dart';
 /// A listener for [ChangeNotifier] that extends [MessageNotifierMixin] mixin
 /// Wrapping a widget with [MessageListener] will use [Scaffold.context] to show Snackbars called from the ChangeNotifier class with [notifyError] or [notifyInfo] methods
 /// Useful to display error or information messages
-/// 
+///
 /// As an example:
 /// ```dart
 /// ChangeNotifierProvider.value(
@@ -21,7 +19,6 @@ import 'package:riverpod_messages/src/message_listener.dart';
 /// );
 /// ```
 class MessageSnackbarListener extends StatelessWidget {
-
   final ProviderBase provider;
 
   final String? Function(dynamic)? errorExtractor;
@@ -53,7 +50,7 @@ class MessageSnackbarListener extends StatelessWidget {
 
   /// if [onInfoTap] is not null an action will be added to the [SnackBar] when an info message occur
   final void Function()? onInfoTap;
-  
+
   /// Customize info [SnackBar] action label
   final String infoActionLabel;
 
@@ -71,75 +68,85 @@ class MessageSnackbarListener extends StatelessWidget {
   /// [SnackBar] duration
   /// default is Duration(milliseconds: 4000)
   final Duration snackBarDisplayTime;
-  
-  const MessageSnackbarListener({
-    Key? key, 
-    required this.child,
-    required this. provider,
-    this.errorExtractor, this.infoExtractor,
-    this.onError, this.onErrorTap, this.errorActionLabel = 'Segnala', this.errorActionLabelColor = Colors.white, this.errorBackgroundColor = Colors.red, this.errorLeading = const Icon(Icons.error, color: Colors.white), 
-    this.onInfo, this.onInfoTap, this.infoActionLabel = 'Info', this.infoActionLabelColor = Colors.white, this.infoBackgroundColor = Colors.lightBlue, this.infoLeading = const Icon(Icons.info, color: Colors.white), this.snackBarDisplayTime = const Duration(milliseconds: 4000)
-  }) : 
-    super(key: key);
+
+  const MessageSnackbarListener(
+      {Key? key,
+      required this.child,
+      required this.provider,
+      this.errorExtractor,
+      this.infoExtractor,
+      this.onError,
+      this.onErrorTap,
+      this.errorActionLabel = 'Segnala',
+      this.errorActionLabelColor = Colors.white,
+      this.errorBackgroundColor = Colors.red,
+      this.errorLeading = const Icon(Icons.error, color: Colors.white),
+      this.onInfo,
+      this.onInfoTap,
+      this.infoActionLabel = 'Info',
+      this.infoActionLabelColor = Colors.white,
+      this.infoBackgroundColor = Colors.lightBlue,
+      this.infoLeading = const Icon(Icons.info, color: Colors.white),
+      this.snackBarDisplayTime = const Duration(milliseconds: 4000)})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MessageListener(
-        showError: (error) => _handleError(context, error), 
-        showInfo: (info) => _handleInfo(context, info),
-        errorExtractor: errorExtractor,
-        infoExtractor: infoExtractor,
-        provider: provider,
-        child: child, 
-      );    
+      showError: (error) => _handleError(context, error),
+      showInfo: (info) => _handleInfo(context, info),
+      errorExtractor: errorExtractor,
+      infoExtractor: infoExtractor,
+      provider: provider,
+      child: child,
+    );
   }
 
   void _handleError(BuildContext context, String error) {
-      ScaffoldMessenger.of(context)
+    ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
           backgroundColor: errorBackgroundColor,
           duration: snackBarDisplayTime,
-          action: onErrorTap != null ? SnackBarAction(
-            label: errorActionLabel,
-            onPressed: onErrorTap!,
-            textColor: errorActionLabelColor
-          ) : null,
+          action: onErrorTap != null
+              ? SnackBarAction(label: errorActionLabel, onPressed: onErrorTap!, textColor: errorActionLabelColor)
+              : null,
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               errorLeading,
-              Expanded(child: Padding( padding:const EdgeInsets.only(left:16), child:Text(error) ))
+              Expanded(child: Padding(padding: const EdgeInsets.only(left: 16), child: Text(error)))
             ],
           ),
         ),
       );
-      if (onError != null) { onError!(error); }
+    if (onError != null) {
+      onError!(error);
+    }
   }
 
   void _handleInfo(BuildContext context, String info) {
-      ScaffoldMessenger.of(context)
+    ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
           backgroundColor: infoBackgroundColor,
           duration: snackBarDisplayTime,
-          action: onInfoTap != null ? SnackBarAction(
-            label: infoActionLabel,
-            onPressed: onInfoTap!,
-            textColor: infoActionLabelColor
-          ) : null,
+          action: onInfoTap != null
+              ? SnackBarAction(label: infoActionLabel, onPressed: onInfoTap!, textColor: infoActionLabelColor)
+              : null,
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               infoLeading,
-              Expanded(child: Padding( padding:const EdgeInsets.only(left:16), child:Text(info) ))
+              Expanded(child: Padding(padding: const EdgeInsets.only(left: 16), child: Text(info)))
             ],
           ),
         ),
       );
-      if (onInfo != null) { onInfo!(info); }
+    if (onInfo != null) {
+      onInfo!(info);
+    }
   }
-
 }

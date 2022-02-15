@@ -1,4 +1,3 @@
-
 import 'package:example/state/example_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,18 +20,16 @@ class StateNotifierOverlayPage extends ConsumerWidget {
                   child: const Text('Simulate error message'),
                   style: ElevatedButton.styleFrom(primary: Colors.red),
                   onPressed: () {
-                    ref
-                        .read(exampleStateNotifierProvider.notifier)
-                        .simulateError();
+                    ref.read(exampleStateNotifierProvider.notifier).simulateError();
                   }),
               ElevatedButton(
                   child: const Text('Simulate information message'),
                   onPressed: () {
-                    ref
-                        .read(exampleStateNotifierProvider.notifier)
-                        .simulateInfo();
+                    ref.read(exampleStateNotifierProvider.notifier).simulateInfo();
                   }),
-              ref.watch(exampleStateNotifierProvider.select((value) => value.loading)) ? const CircularProgressIndicator() : Container()
+              ref.watch(exampleStateNotifierProvider.select((value) => value.loading))
+                  ? const CircularProgressIndicator()
+                  : Container()
             ]))));
   }
 }

@@ -1,14 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ExampleChangeNotifier extends ChangeNotifier {
-
   String? error;
   String? info;
   bool loading = false;
 
-  ExampleChangeNotifier({ this.error, this.info });
+  ExampleChangeNotifier({this.error, this.info});
 
   Future<void> simulateError() async {
     error = null;
@@ -29,7 +27,6 @@ class ExampleChangeNotifier extends ChangeNotifier {
     loading = false;
     notifyListeners();
   }
-
 }
 
 final exampleChangeNotifierProvider = ChangeNotifierProvider((_) => ExampleChangeNotifier());

@@ -9,20 +9,27 @@ class ChangeNotifierListenerWrapper extends ConsumerStatefulWidget {
   final String? Function(dynamic) errorExtractor;
   final String? Function(dynamic) infoExtractor;
 
-  const ChangeNotifierListenerWrapper({ required this.child, required this.provider, required this.errorExtractor, required this.infoListener, required this.errorListener, required this.infoExtractor, Key? key}) : super(key: key);
+  const ChangeNotifierListenerWrapper(
+      {required this.child,
+      required this.provider,
+      required this.errorExtractor,
+      required this.infoListener,
+      required this.errorListener,
+      required this.infoExtractor,
+      Key? key})
+      : super(key: key);
 
   @override
   _ChangeNotifierListenerWrapperState createState() => _ChangeNotifierListenerWrapperState();
 }
 
 class _ChangeNotifierListenerWrapperState<T> extends ConsumerState<ChangeNotifierListenerWrapper> {
-  
   String? oldError;
   String? oldInfo;
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(widget.provider, (dynamic previous, dynamic next) { 
+    ref.listen(widget.provider, (dynamic previous, dynamic next) {
       final error = widget.errorExtractor(next);
       widget.errorListener(oldError, error);
       oldError = error;
