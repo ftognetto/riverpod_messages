@@ -14,6 +14,8 @@ Some of the way this package can be used are:
 This package is helpful for **manage all the exceptions** that can be thrown across our *StateNotifiers* or *ChangeNotifiers* for example for internal errors or api calls.
 Automatically this package listen the notifier and knows when to show a message to the user.
 
+> We can use as many as MessageListener we want, so we could use a MessageListener for every Notifier or we can make a global error handling by creating an appropriate notifier and then wrap the whole app with MessageListener
+
 
 <img src="https://user-images.githubusercontent.com/47910896/154097732-005a10a3-f9ad-4411-8c34-48b790f6b7be.gif" width="250" />
 
