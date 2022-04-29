@@ -36,18 +36,32 @@ class MessageListener extends ConsumerWidget {
     required void Function(String error) showInfo,
   }) {
     if (provider is StateNotifierProvider) {
-      return MessageListener._stateNotifier(child: child, provider: provider, showError: showError, showInfo: showInfo);
+      return MessageListener._stateNotifier(
+          child: child,
+          provider: provider,
+          showError: showError,
+          showInfo: showInfo);
     } else if (provider is AutoDisposeStateNotifierProvider) {
       return MessageListener._autoDisposeStateNotifier(
-          child: child, provider: provider, showError: showError, showInfo: showInfo);
+          child: child,
+          provider: provider,
+          showError: showError,
+          showInfo: showInfo);
     } else if (provider is ChangeNotifierProvider) {
       return MessageListener._changeNotifier(
-          child: child, provider: provider, showError: showError, showInfo: showInfo);
+          child: child,
+          provider: provider,
+          showError: showError,
+          showInfo: showInfo);
     } else if (provider is AutoDisposeChangeNotifierProvider) {
       return MessageListener._autoDisposeChangeNotifier(
-          child: child, provider: provider, showError: showError, showInfo: showInfo);
+          child: child,
+          provider: provider,
+          showError: showError,
+          showInfo: showInfo);
     } else {
-      throw UnimplementedError('riverpod_messages supports only StateNotifier or ChangeNotifier');
+      throw UnimplementedError(
+          'riverpod_messages supports only StateNotifier or ChangeNotifier');
     }
   }
 
@@ -118,8 +132,10 @@ class MessageListener extends ConsumerWidget {
     Widget _child = child;
 
     // State notifiers
-    if (stateNotifierProvider != null || stateNotifierAutoDisposeProvider != null) {
-      ref.listen(stateNotifierProvider ?? stateNotifierAutoDisposeProvider!, (dynamic old, dynamic value) {
+    if (stateNotifierProvider != null ||
+        stateNotifierAutoDisposeProvider != null) {
+      ref.listen(stateNotifierProvider ?? stateNotifierAutoDisposeProvider!,
+          (dynamic old, dynamic value) {
         String? error;
         String? oldError;
         if (errorExtractor != null) {
@@ -160,10 +176,12 @@ class MessageListener extends ConsumerWidget {
 
     // Change notifiers
     // This needs a wrapper, because ref.listen will not have the previous state to compare
-    if (changeNotifierProvider != null || changeNotifierAutoDisposeProvider != null) {
+    if (changeNotifierProvider != null ||
+        changeNotifierAutoDisposeProvider != null) {
       _child = ChangeNotifierListenerWrapper(
           child: _child,
-          provider: changeNotifierProvider ?? changeNotifierAutoDisposeProvider!,
+          provider:
+              changeNotifierProvider ?? changeNotifierAutoDisposeProvider!,
           errorExtractor: errorExtractor ?? _defaultErrorExtractor,
           infoExtractor: infoExtractor ?? _defaultInfoExtractor,
           errorListener: (oldError, error) {
@@ -201,7 +219,9 @@ class MessageListener extends ConsumerWidget {
     } on NoSuchMethodError {
       // noop
     }
-    if (hasProperty && (value as dynamic).error is String && ((value as dynamic).error as String).isNotEmpty) {
+    if (hasProperty &&
+        (value as dynamic).error is String &&
+        ((value as dynamic).error as String).isNotEmpty) {
       return ((value as dynamic).error as String);
     }
     return null;
@@ -215,7 +235,9 @@ class MessageListener extends ConsumerWidget {
     } on NoSuchMethodError {
       // noop
     }
-    if (hasProperty && (value as dynamic).info is String && ((value as dynamic).info as String).isNotEmpty) {
+    if (hasProperty &&
+        (value as dynamic).info is String &&
+        ((value as dynamic).info as String).isNotEmpty) {
       return ((value as dynamic).info as String);
     }
     return null;

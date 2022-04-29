@@ -204,8 +204,8 @@ class _OverlayBodyState extends State<_OverlayBody> {
   @override
   void initState() {
     super.initState();
-    positionAnimation = Tween<double>(begin: -48.0, end: 24.0)
-        .animate(CurvedAnimation(parent: widget.controller!, curve: Curves.linear));
+    positionAnimation = Tween<double>(begin: -48.0, end: 24.0).animate(
+        CurvedAnimation(parent: widget.controller!, curve: Curves.linear));
     widget.controller!.forward();
     widget.controller!.addListener(_refresh);
     Future.delayed(const Duration(seconds: 5), () {
@@ -232,7 +232,8 @@ class _OverlayBodyState extends State<_OverlayBody> {
                   _close();
                 },
                 child: Dismissible(
-                    key: Key('in_app_notification_dismissible_${Random().nextDouble()}'),
+                    key: Key(
+                        'in_app_notification_dismissible_${Random().nextDouble()}'),
                     direction: DismissDirection.up,
                     onDismissed: (direction) {
                       widget.onClosed!();
@@ -240,16 +241,22 @@ class _OverlayBodyState extends State<_OverlayBody> {
                     child: Padding(
                         padding: const EdgeInsets.all(16),
                         child: Container(
-                          decoration:
-                              BoxDecoration(color: widget.backgroundColor, borderRadius: BorderRadius.circular(16)),
+                          decoration: BoxDecoration(
+                              color: widget.backgroundColor,
+                              borderRadius: BorderRadius.circular(16)),
                           padding: const EdgeInsets.all(16),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               if (widget.leading != null) widget.leading!,
-                              if (widget.leading != null) const SizedBox(width: 16),
-                              Expanded(child: Text(widget.body, style: TextStyle(color: widget.textColor))),
-                              if (widget.trailing != null) const SizedBox(width: 16),
+                              if (widget.leading != null)
+                                const SizedBox(width: 16),
+                              Expanded(
+                                  child: Text(widget.body,
+                                      style:
+                                          TextStyle(color: widget.textColor))),
+                              if (widget.trailing != null)
+                                const SizedBox(width: 16),
                               if (widget.trailing != null) widget.trailing!
                             ],
                           ),

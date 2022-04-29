@@ -110,13 +110,19 @@ class MessageSnackbarListener extends StatelessWidget {
           backgroundColor: errorBackgroundColor,
           duration: snackBarDisplayTime,
           action: onErrorTap != null
-              ? SnackBarAction(label: errorActionLabel, onPressed: onErrorTap!, textColor: errorActionLabelColor)
+              ? SnackBarAction(
+                  label: errorActionLabel,
+                  onPressed: onErrorTap!,
+                  textColor: errorActionLabelColor)
               : null,
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               errorLeading,
-              Expanded(child: Padding(padding: const EdgeInsets.only(left: 16), child: Text(error)))
+              Expanded(
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Text(error)))
             ],
           ),
         ),
@@ -134,13 +140,19 @@ class MessageSnackbarListener extends StatelessWidget {
           backgroundColor: infoBackgroundColor,
           duration: snackBarDisplayTime,
           action: onInfoTap != null
-              ? SnackBarAction(label: infoActionLabel, onPressed: onInfoTap!, textColor: infoActionLabelColor)
+              ? SnackBarAction(
+                  label: infoActionLabel,
+                  onPressed: onInfoTap!,
+                  textColor: infoActionLabelColor)
               : null,
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               infoLeading,
-              Expanded(child: Padding(padding: const EdgeInsets.only(left: 16), child: Text(info)))
+              Expanded(
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Text(info)))
             ],
           ),
         ),
