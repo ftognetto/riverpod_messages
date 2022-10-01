@@ -1,20 +1,26 @@
 name: riverpod_messages
 description: A message notification listener for riverpod architecture
-version: 1.0.1
+version: 1.0.2
 homepage: https://www.quantos.it
 repository: https://github.com/ftognetto/riverpod_messages
-
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  web:
+  windows:
 environment:
-  sdk: ">=2.16.0 <3.0.0"
-  flutter: ">=1.17.0"
+  sdk: '>=2.16.0 <3.0.0'
+  flutter: '>=1.17.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_riverpod: ^1.0.4
+  flutter_riverpod: ^2.0.0
 
 dev_dependencies:
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
 

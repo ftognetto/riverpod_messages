@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_messages/riverpod_messages.dart';
@@ -91,10 +92,10 @@ class MessageOverlayListener extends StatefulWidget {
       : super(key: key);
 
   @override
-  _MessageOverlayListenerState createState() => _MessageOverlayListenerState();
+  MessageOverlayListenerState createState() => MessageOverlayListenerState();
 }
 
-class _MessageOverlayListenerState extends State<MessageOverlayListener>
+class MessageOverlayListenerState extends State<MessageOverlayListener>
     with SingleTickerProviderStateMixin<MessageOverlayListener> {
   OverlayEntry? _notificationPopup;
   AnimationController? controller;

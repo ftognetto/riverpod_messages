@@ -29,4 +29,5 @@ class ExampleChangeNotifier extends ChangeNotifier {
   }
 }
 
-final exampleChangeNotifierProvider = ChangeNotifierProvider((_) => ExampleChangeNotifier());
+final exampleChangeNotifierProvider =
+    ChangeNotifierProvider((_) => ExampleChangeNotifier());

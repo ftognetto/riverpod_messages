@@ -37,28 +37,36 @@ class MessageListener extends ConsumerWidget {
   }) {
     if (provider is StateNotifierProvider) {
       return MessageListener._stateNotifier(
-          child: child,
           provider: provider,
           showError: showError,
-          showInfo: showInfo);
+          showInfo: showInfo,
+          errorExtractor: errorExtractor,
+          infoExtractor: infoExtractor,
+          child: child);
     } else if (provider is AutoDisposeStateNotifierProvider) {
       return MessageListener._autoDisposeStateNotifier(
-          child: child,
           provider: provider,
           showError: showError,
-          showInfo: showInfo);
+          showInfo: showInfo,
+          errorExtractor: errorExtractor,
+          infoExtractor: infoExtractor,
+          child: child);
     } else if (provider is ChangeNotifierProvider) {
       return MessageListener._changeNotifier(
-          child: child,
           provider: provider,
           showError: showError,
-          showInfo: showInfo);
+          showInfo: showInfo,
+          errorExtractor: errorExtractor,
+          infoExtractor: infoExtractor,
+          child: child);
     } else if (provider is AutoDisposeChangeNotifierProvider) {
       return MessageListener._autoDisposeChangeNotifier(
-          child: child,
           provider: provider,
           showError: showError,
-          showInfo: showInfo);
+          showInfo: showInfo,
+          errorExtractor: errorExtractor,
+          infoExtractor: infoExtractor,
+          child: child);
     } else {
       throw UnimplementedError(
           'riverpod_messages supports only StateNotifier or ChangeNotifier');
@@ -68,11 +76,11 @@ class MessageListener extends ConsumerWidget {
   const MessageListener._stateNotifier({
     Key? key,
     required this.child,
-    this.errorExtractor,
-    this.infoExtractor,
     required StateNotifierProvider provider,
     required this.showError,
     required this.showInfo,
+    this.errorExtractor,
+    this.infoExtractor,
   })  :
         // ignore: prefer_initializing_formals
         stateNotifierProvider = provider,
@@ -84,11 +92,11 @@ class MessageListener extends ConsumerWidget {
   const MessageListener._autoDisposeStateNotifier({
     Key? key,
     required this.child,
-    this.errorExtractor,
-    this.infoExtractor,
     required AutoDisposeStateNotifierProvider provider,
     required this.showError,
     required this.showInfo,
+    this.errorExtractor,
+    this.infoExtractor,
   })  : stateNotifierProvider = null,
         stateNotifierAutoDisposeProvider = provider,
         changeNotifierProvider = null,
@@ -98,11 +106,11 @@ class MessageListener extends ConsumerWidget {
   const MessageListener._changeNotifier({
     Key? key,
     required this.child,
-    this.errorExtractor,
-    this.infoExtractor,
     required ChangeNotifierProvider provider,
     required this.showError,
     required this.showInfo,
+    this.errorExtractor,
+    this.infoExtractor,
   })  :
         // ignore: prefer_initializing_formals
         stateNotifierProvider = null,
@@ -114,11 +122,11 @@ class MessageListener extends ConsumerWidget {
   const MessageListener._autoDisposeChangeNotifier({
     Key? key,
     required this.child,
-    this.errorExtractor,
-    this.infoExtractor,
     required AutoDisposeChangeNotifierProvider provider,
     required this.showError,
     required this.showInfo,
+    this.errorExtractor,
+    this.infoExtractor,
   })  :
         // ignore: prefer_initializing_formals
         stateNotifierProvider = null,
@@ -129,7 +137,7 @@ class MessageListener extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Widget _child = child;
+    Widget child = this.child;
 
     // State notifiers
     if (stateNotifierProvider != null ||
@@ -178,8 +186,7 @@ class MessageListener extends ConsumerWidget {
     // This needs a wrapper, because ref.listen will not have the previous state to compare
     if (changeNotifierProvider != null ||
         changeNotifierAutoDisposeProvider != null) {
-      _child = ChangeNotifierListenerWrapper(
-          child: _child,
+      child = ChangeNotifierListenerWrapper(
           provider:
               changeNotifierProvider ?? changeNotifierAutoDisposeProvider!,
           errorExtractor: errorExtractor ?? _defaultErrorExtractor,
@@ -193,10 +200,11 @@ class MessageListener extends ConsumerWidget {
             if (info != null && info != oldInfo) {
               _handleInfo(context, info);
             }
-          });
+          },
+          child: child);
     }
 
-    return _child;
+    return child;
   }
 
   void _handleError(BuildContext context, String error) {

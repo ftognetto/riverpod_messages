@@ -19,7 +19,9 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          primarySwatch: Colors.blue, snackBarTheme: const SnackBarThemeData(behavior: SnackBarBehavior.floating)),
+          primarySwatch: Colors.blue,
+          snackBarTheme:
+              const SnackBarThemeData(behavior: SnackBarBehavior.floating)),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     ));
   }
@@ -47,25 +49,27 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             ElevatedButton(
                 child: const Text('State notifier with Snackbar'),
                 onPressed: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => const StateNotifierSnackbarPage()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const StateNotifierSnackbarPage()));
                 }),
             ElevatedButton(
                 child: const Text('State notifier with Overlay'),
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const StateNotifierOverlayPage()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const StateNotifierOverlayPage()));
                 }),
             ElevatedButton(
                 child: const Text('Change notifier with Snackbar'),
                 onPressed: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => const ChangeNotifierSnackbarPage()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          const ChangeNotifierSnackbarPage()));
                 }),
             ElevatedButton(
                 child: const Text('Change notifier with Overlay'),
                 onPressed: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => const ChangeNotifierOverlayPage()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ChangeNotifierOverlayPage()));
                 })
           ],
         ),

@@ -7,11 +7,15 @@ class ExampleStateNotifierState {
   /// .... other properties of the state
   final bool loading;
 
-  const ExampleStateNotifierState({this.loading = false, this.error, this.info});
+  const ExampleStateNotifierState(
+      {this.loading = false, this.error, this.info});
 
-  ExampleStateNotifierState copyWith({String? error, String? info, bool? loading}) {
+  ExampleStateNotifierState copyWith(
+      {String? error, String? info, bool? loading}) {
     return ExampleStateNotifierState(
-        error: error ?? this.error, info: info ?? this.info, loading: loading ?? this.loading);
+        error: error ?? this.error,
+        info: info ?? this.info,
+        loading: loading ?? this.loading);
   }
 }
 
@@ -24,7 +28,8 @@ class ExampleStateNotifier extends StateNotifier<ExampleStateNotifierState> {
     // simulate a job
     await Future.delayed(const Duration(seconds: 1));
 
-    state = state.copyWith(loading: false, error: 'Ooops! An error has occurred! [StateNotifier]');
+    state = state.copyWith(
+        loading: false, error: 'Ooops! An error has occurred! [StateNotifier]');
   }
 
   Future<void> simulateInfo() async {
@@ -32,9 +37,11 @@ class ExampleStateNotifier extends StateNotifier<ExampleStateNotifierState> {
 
     // simulate a job
     await Future.delayed(const Duration(seconds: 1));
-    state = state.copyWith(loading: false, info: 'You received a new message! [StateNotifier]');
+    state = state.copyWith(
+        loading: false, info: 'You received a new message! [StateNotifier]');
   }
 }
 
 final exampleStateNotifierProvider =
-    StateNotifierProvider<ExampleStateNotifier, ExampleStateNotifierState>((_) => ExampleStateNotifier());
+    StateNotifierProvider<ExampleStateNotifier, ExampleStateNotifierState>(
+        (_) => ExampleStateNotifier());

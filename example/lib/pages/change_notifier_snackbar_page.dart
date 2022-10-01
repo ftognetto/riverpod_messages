@@ -20,14 +20,19 @@ class ChangeNotifierSnackbarPage extends ConsumerWidget {
                   child: const Text('Simulate error message'),
                   style: ElevatedButton.styleFrom(primary: Colors.red),
                   onPressed: () {
-                    ref.read(exampleChangeNotifierProvider.notifier).simulateError();
+                    ref
+                        .read(exampleChangeNotifierProvider.notifier)
+                        .simulateError();
                   }),
               ElevatedButton(
                   child: const Text('Simulate information message'),
                   onPressed: () {
-                    ref.read(exampleChangeNotifierProvider.notifier).simulateInfo();
+                    ref
+                        .read(exampleChangeNotifierProvider.notifier)
+                        .simulateInfo();
                   }),
-              ref.watch(exampleChangeNotifierProvider.select((value) => value.loading))
+              ref.watch(exampleChangeNotifierProvider
+                      .select((value) => value.loading))
                   ? const CircularProgressIndicator()
                   : Container()
             ]))));

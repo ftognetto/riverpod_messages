@@ -20,11 +20,11 @@ class ChangeNotifierListenerWrapper extends ConsumerStatefulWidget {
       : super(key: key);
 
   @override
-  _ChangeNotifierListenerWrapperState createState() =>
-      _ChangeNotifierListenerWrapperState();
+  ChangeNotifierListenerWrapperState createState() =>
+      ChangeNotifierListenerWrapperState();
 }
 
-class _ChangeNotifierListenerWrapperState<T>
+class ChangeNotifierListenerWrapperState<T>
     extends ConsumerState<ChangeNotifierListenerWrapper> {
   String? oldError;
   String? oldInfo;
